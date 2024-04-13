@@ -1,12 +1,34 @@
 import { RequestHandler } from "express";
-
+import bcrypt from "bcryptjs";
 import { User }  from "../models/userModel"
+import UserRepository from "../repositories/userRepository";
+
+const userRepository = new UserRepository;
 
 export const createUser: RequestHandler = async (req, res, next) => {
-    var users = await User.create({ ...req.body });
-    return res
+
+    const name = req.body.name;
+    const email = req.body.email;
+    const passwd = req.body.passwd;
+    const access_level = req.body.access_level;
+
+    try{
+        const hashedPassword = await bcrypt.hash(passwd, 8);
+
+        const userJson = {
+            "name":name,
+            "email":email,
+            "passwd":hashedPassword,
+            "access_level":access_level
+        }
+
+        var users = await User.create({ ...userJson });
+        return res
         .status(200)
         .json({ message: "User Created", data: users });
+    }catch(error) {
+        console.error("Error: ", error)
+    }
 };
 
 export const deleteUser: RequestHandler = async(req, res, next) => {
@@ -36,4 +58,8 @@ export const updateUser: RequestHandler = async(req, res, next) => {
     await User.update({...req.body},{where:{id}});
     const updatedUser: User|null = await User.findByPk(id);
     return res.status(200).json({data:updatedUser})
+}
+
+export const login: RequestHandler = async(req, res, next) => {
+    
 }
