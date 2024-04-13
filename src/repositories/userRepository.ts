@@ -3,14 +3,11 @@ import connection from '../db/config';
 
 class UserRepository {
 
-  async findUsersByEmail(keyword: string): Promise<any[]> {
-    const query = `
-      SELECT * FROM users
-      WHERE email LIKE :keyword
-    `;
-    return connection.query(query, {
-      replacements: { keyword: `%${keyword}%` },
-      type: QueryTypes.SELECT,
+  async findUserByEmail(varEmail: string): Promise<any> {
+    return connection.models.User.findOne({
+      where: {
+        email: varEmail
+      }
     });
   }
 

@@ -2,7 +2,9 @@ import { RequestHandler } from "express";
 import bcrypt from "bcryptjs";
 import { User }  from "../models/userModel"
 import UserRepository from "../repositories/userRepository";
+import UserService from "../services/userService";
 
+const userService = new UserService;
 const userRepository = new UserRepository;
 
 export const createUser: RequestHandler = async (req, res, next) => {
@@ -61,5 +63,11 @@ export const updateUser: RequestHandler = async(req, res, next) => {
 }
 
 export const login: RequestHandler = async(req, res, next) => {
-    
+    try {
+        let foundUser = await userService.login(req.body);
+        res.status(200).send(foundUser);
+    } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500);
+    }
 }

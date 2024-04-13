@@ -5,7 +5,8 @@ import {
     deleteUser,
     getAllUsers,
     getUserById,
-    updateUser
+    updateUser,
+    login
 } from "../controllers/userController"
 
 const router = Router();
@@ -15,5 +16,7 @@ router.delete("/user/:id", deleteUser);
 router.get("/users", getAllUsers);
 router.get("/user/:id", getUserById);
 router.patch("/user/:id", updateUser);
+
+router.post("/login", login)
 
 export default router;
