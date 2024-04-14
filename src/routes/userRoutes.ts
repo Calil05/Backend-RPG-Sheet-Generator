@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { auth, adminAccess } from "../middleware/auth";
 
 import {
     createUser,
@@ -13,7 +14,7 @@ const router = Router();
 
 router.post("/user", createUser);
 router.delete("/user/:id", deleteUser);
-router.get("/users", getAllUsers);
+router.get("/users", adminAccess, getAllUsers);
 router.get("/user/:id", getUserById);
 router.patch("/user/:id", updateUser);
 

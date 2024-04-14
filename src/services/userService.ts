@@ -3,8 +3,11 @@ import { User }  from "../models/userModel"
 import UserRepository from "../repositories/userRepository";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv'; 
+dotenv.config()
 
 const userRepository = new UserRepository;
+const SECRET_KEY: any = process.env.SECRET_KEY;
 
 class UserService {
     async login(user:User) {
@@ -18,7 +21,7 @@ class UserService {
             const match = await bcrypt.compare(user.passwd, foundUser.passwd)
 
             if (match) {
-                const token = jwt.sign({ id: foundUser.id?.toString(), email: foundUser.email, access_level: foundUser.access_level }, 'SECRET_KEY', {
+                const token = jwt.sign({ id: foundUser.id?.toString(), email: foundUser.email, access_level: foundUser.access_level }, SECRET_KEY, {
                     expiresIn: '2 days'
                 });
                 return { foundUser, token: token}
