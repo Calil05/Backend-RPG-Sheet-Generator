@@ -2,11 +2,13 @@ import { json, urlencoded } from 'body-parser';
 import express from 'express';
 import userRoutes from './routes/userRoutes'
 import connection from './db/config';
+import cors from 'cors';
 
 const app = express();
 
 app.use(json());
 app.use(urlencoded({extended:true}));
+app.use(cors());
 app.use("/api/", userRoutes);
 app.use((
     err:Error,
