@@ -37,8 +37,6 @@ export const adminAccess = async (req: Request, res: Response, next: NextFunctio
 
     const decoded: any = jwt.verify(token, SECRET_KEY);
 
-    console.log('teste');
-
     if (!decoded.access_level) {
       return res.status(401).send({ mensagem: 'Invalid authentication token.' });
     }

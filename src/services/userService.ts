@@ -24,7 +24,7 @@ class UserService {
                 const token = jwt.sign({ id: foundUser.id?.toString(), email: foundUser.email, access_level: foundUser.access_level }, SECRET_KEY, {
                     expiresIn: '2 days'
                 });
-                return { foundUser, token: token}
+                return { token: token}
             } else {
                 console.error('Password is not correct')
                 return response.status(500);
