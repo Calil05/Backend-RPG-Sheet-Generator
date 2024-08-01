@@ -1,4 +1,5 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasOne, PrimaryKey, AutoIncrement } from "sequelize-typescript";
+import { System } from "./systemModel";
 
 @Table({
     timestamps: false,
@@ -6,6 +7,13 @@ import { Table, Model, Column, DataType } from "sequelize-typescript";
 })
 
 export class User extends Model {
+    @PrimaryKey
+    @AutoIncrement
+    @Column({
+        type: DataType.INTEGER,
+    })
+    id!: number
+
     @Column({
         type:DataType.STRING,
         allowNull: false
@@ -29,4 +37,7 @@ export class User extends Model {
         allowNull: false
     })
     access_level!:string;
+
+    @HasOne(() => System)
+    system!: System;
 }

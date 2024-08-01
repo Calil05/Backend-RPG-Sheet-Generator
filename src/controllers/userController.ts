@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import bcrypt from "bcryptjs";
-import { User }  from "../models/userModel"
+import { User }  from "../domain/models/userModel"
 import UserRepository from "../repositories/userRepository";
 import UserService from "../services/userService";
 
