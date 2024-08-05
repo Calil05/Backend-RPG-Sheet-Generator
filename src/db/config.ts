@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import { User } from "../domain/models/userModel";
 import * as dotenv from 'dotenv'; 
 import { System } from "../domain/models/systemModel";
+import { Classes } from "../domain/models/classesModel";
 dotenv.config()
 
 const connection = new Sequelize({
@@ -11,7 +12,7 @@ const connection = new Sequelize({
     password:process.env.DB_PASSWORD,
     database:process.env.DB_DATABASE,
     logging:false,
-    models:[ User, System ]
+    models:[ User, System, Classes ]
 });
 
 export default connection;

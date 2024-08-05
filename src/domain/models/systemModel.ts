@@ -1,6 +1,7 @@
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { systemDices } from "../enumeration/systemDices";
 import { User } from "./userModel";
+import { Classes } from "./classesModel";
 
 @Table({
     timestamps: false,
@@ -49,4 +50,7 @@ export class System extends Model {
 
     @BelongsTo(() => User)
     user!: User;
+
+    @HasOne(() => Classes)
+    system!: Classes;
 }
